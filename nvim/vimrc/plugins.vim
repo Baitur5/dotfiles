@@ -16,10 +16,10 @@ Plug 'yamatsum/nvim-cursorline'
 
 "Colorschemes
 Plug 'olimorris/onedarkpro.nvim'
+Plug 'Mofiqul/vscode.nvim'
 
 " Improve startup time
 Plug 'lewis6991/impatient.nvim'
-Plug 'Mofiqul/vscode.nvim'
 
 " Managing projects
 Plug 'ahmedkhalf/project.nvim'

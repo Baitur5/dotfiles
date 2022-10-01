@@ -63,7 +63,7 @@ set signcolumn=yes
 
 
 "Status bar
-set cmdheight=0
+set cmdheight=1
 set laststatus=3
 
 
@@ -74,3 +74,4 @@ let bufferline.exclude_ft = ["qf","t"]
 let bufferline.tabpages = v:true
 
 
+autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll

@@ -72,6 +72,3 @@ nnoremap <leader>t <cmd>TroubleToggle<cr>
 nmap <leader>o o<Esc>k
 nmap <leader>O O<Esc>j
 
-" Vim-Plug
-nnoremap <leader>pc <cmd>PlugClean<CR>
-nnoremap <leader>pi <cmd>PlugInstall<CR>
