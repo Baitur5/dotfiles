@@ -31,7 +31,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
     if client.server_capabilities.documentFormattingProvider then
-        vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format{ async=true }]])
+        vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format{  }]])
     end
 end
 
@@ -48,8 +48,8 @@ for _, lsp in pairs(servers) do
         flags = lsp_flags,
         capabilities = capabilities,
         root_dir = function(fname)
-    return vim.fn.getcwd()
-end
+            return vim.fn.getcwd()
+        end
     })
 end
 
@@ -62,17 +62,22 @@ require("mason-lspconfig").setup_handlers {
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
-        root_dir = function(fname)
-    return vim.fn.getcwd()
-end
+            root_dir = function(fname)
+                return vim.fn.getcwd()
+            end
         })
     end,
 }
 
 vim.diagnostic.config({
     virtual_text = false,
-    signs = false,
+    signs = true,
     underline = true,
     update_in_insert = true,
     severity_sort = true,
 })
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end

@@ -16,7 +16,7 @@ nmap <silent>  <leader>l :HopLine<CR>
 nmap <silent> <leader>cl :HopWordCurrentLine<CR>
 
 nnoremap <silent> <C-n> :Neotree toggle<CR>
-nnoremap <silent> <C-b> :Neotree toggle buffers<CR>
+" nnoremap <silent> <C-b> :Neotree toggle buffers<CR>
 
 " auto put insert mode when going into terminal
 autocmd TermOpen * setlocal nonumber 

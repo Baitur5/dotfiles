@@ -1,9 +1,6 @@
-require('plugins')
-require("nvim-autopairs").setup({})
-
+require("dependencies")
 -- Map leader key
 vim.g.mapleader = ' '
-
 
 -- Set highlight on search
 vim.opt.hlsearch = false
@@ -39,40 +36,11 @@ vim.o.clipboard = 'unnamedplus'
 vim.o.termguicolors = true
 vim.o.background = 'dark'
 
-require('vscode').setup({
-    transparent = true,
-    italic_comments = true,
-})
-
-require("tree")
-
-require('lualine').setup({
-    options = {
-        theme = 'vscode',
-        globalstatus = true,
-        ignore_focus = { "neo-tree", "qf", "t" },
-    },
-    sections = {
-        lualine_a = { 'mode' },
-        lualine_b = { 'branch', 'diff' },
-        lualine_c = {},
-        lualine_x = { 'diagnostics' },
-        lualine_y = { 'progress' },
-        lualine_z = { 'location' }
-    },
-})
-
-require('treesitter')
-require("lsp")
-require("auto-completion")
-require("hop_config")
-
-
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
--- empty setup using defaults
 
 vim.cmd [[source /Users/ulukbekovbr/.config/nvim/vimrc/mappings.vim]]
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-require('tabline')
+
+vim.cmd [[colorscheme vscode]]
