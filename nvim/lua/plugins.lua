@@ -92,4 +92,6 @@ require("lazy").setup({
 		end
 	},
 
+	'vimwiki/vimwiki',
+
 })
