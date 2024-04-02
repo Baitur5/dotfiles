@@ -1,50 +1,95 @@
-vim.cmd [[packadd packer.nvim]]
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
+end
+vim.opt.rtp:prepend(lazypath)
 
-return require('packer').startup(function(use)
-    -- Packer can manage itself
-    use 'wbthomason/packer.nvim'
 
-    use 'Mofiqul/vscode.nvim'
-    use 'nvim-treesitter/nvim-treesitter'
-    use 'nvim-tree/nvim-web-devicons'
-    use 'romgrk/barbar.nvim'
-    use 'yamatsum/nvim-cursorline'
-    use "folke/todo-comments.nvim"
 
-    use 'nvim-lualine/lualine.nvim'
-    use 'nvim-neo-tree/neo-tree.nvim'
-    use "MunifTanjim/nui.nvim"
+require("lazy").setup({
+	'neovim/nvim-lspconfig',
+	'nvim-treesitter/nvim-treesitter',
 
-    use { 'neovim/nvim-lspconfig',
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim"
-    }
+	{
+		'Mofiqul/vscode.nvim',
+		config = function()
+			require('vscode').setup({
+				-- transparent = true,
 
-    use {
-        "SmiteshP/nvim-navic",
-        "utilyre/barbecue.nvim",
-    }
-    use { "hrsh7th/nvim-cmp",
-        'hrsh7th/cmp-nvim-lsp',
-        'saadparwaiz1/cmp_luasnip',
-        'hrsh7th/cmp-buffer',
-        'hrsh7th/cmp-path',
-        'hrsh7th/cmp-cmdline',
-        'onsails/lspkind.nvim',
-        'L3MON4D3/LuaSnip' }
+				-- Enable italic comment
+				italic_comments = true,
 
-    use {
-        'tpope/vim-surround',
-        'karb94/neoscroll.nvim',
-        'tpope/vim-repeat',
-        'tpope/vim-commentary',
-        'windwp/nvim-autopairs',
-        'phaazon/hop.nvim',
-        'tpope/vim-fugitive'
-    }
-    use 'Wansmer/treesj'
-    use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.1',
-        requires = { { 'nvim-lua/plenary.nvim' } }
-    }
-end)
+				-- Disable nvim-tree background color
+				disable_nvimtree_bg = true,
+			})
+			require('vscode').load()
+			vim.cmd [[highlight Normal guibg=none ctermbg=NONE]]
+		end
+	},
+	{
+		"nvim-tree/nvim-tree.lua",
+		version = "*",
+		lazy = false,
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		},
+		config = function()
+			require("nvim-tree").setup {
+				view = {
+					preserve_window_proportions = true,
+				}
+			}
+			vim.cmd [[hi NvimTreeNormal guibg=NONE ctermbg=NONE]]
+		end,
+	},
+
+
+	{
+		'ggandor/leap.nvim',
+		opts = {
+			highlight_unlabeled_phase_one_targets = false
+		},
+		-- config = function()
+		-- 	require('leap').create_default_mappings()
+		-- end
+	},
+
+	'tpope/vim-sleuth',
+	'tpope/vim-surround',
+	'tpope/vim-repeat',
+	{
+	  "karb94/neoscroll.nvim",
+	  config = function ()
+	    require('neoscroll').setup {}
+	  end
+	},
+
+	{
+	  "ibhagwan/fzf-lua",
+	  config = function()
+	    require("fzf-lua").setup({})
+	  end
+	},
+	{
+		'windwp/nvim-autopairs',
+		event = "InsertEnter",
+		config = function()
+			require('nvim-autopairs').setup()
+		end
+	},
+	{
+		'numToStr/Comment.nvim',
+		lazy = false,
+		config = function()
+			require('Comment').setup()
+		end
+	},
+
+})
